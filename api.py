@@ -7,8 +7,9 @@ from token_generator import generate_token
 
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/templates"
-
+# app.config["MONGO_URI"] = "mongodb://localhost:27017/templates"
+app.config['MONGO_DBNAME'] = 'test'
+app.config['MONGO_HOST'] = "mongodb+srv://joseph:Horladapor2012@cluster-test.hnakk.mongodb.net/test?retryWrites=true&w=majority"
 db = MongoEngine()
 db.init_app(app)
 
@@ -36,18 +37,12 @@ class Login_status(db.Document):
     token = db.StringField()
         
 class Template(db.Document):
-    # template_id = db.StringField()
+    """"""
     email =  db.StringField()
     template_name = db.StringField()
     subject= db.StringField()
     body = db.StringField()
     
-    # meta = {
-    #         'auto_create_index':False,
-    #         "indexes":  [
-    #                 "template_id"
-    #     ]
-    # }
     def to_json(self):
         return        {"name": self.template_name,
                         "subject": self.subject,
@@ -60,9 +55,10 @@ class Template(db.Document):
 @app.route('/register', methods=['POST'])
 def register():
     details = request.json
-    # logger.info(details['password'])
+  
     pwd = generate_password_hash(details['password'], 'sha256')
-    # logger.info(pwd)
+ 
+ 
     user = User(
                         first_name= details['first_name'],
                         last_name = details['last_name'],
