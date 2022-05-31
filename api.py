@@ -4,12 +4,12 @@ from flask_mongoengine import MongoEngine
 from werkzeug.security import check_password_hash, generate_password_hash
 from token_generator import generate_token
 # import logger
-
+import os
 
 app = Flask(__name__)
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/templates"
 app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_HOST'] = "mongodb+srv://joseph:Horladapor2012@cluster-test.hnakk.mongodb.net/test?retryWrites=true&w=majority"
+app.config['MONGO_HOST'] = f"mongodb+srv://joseph:{os.environ.get('password')}@cluster-test.hnakk.mongodb.net/test?retryWrites=true&w=majority"
 db = MongoEngine()
 db.init_app(app)
 

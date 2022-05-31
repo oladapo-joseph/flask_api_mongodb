@@ -134,7 +134,7 @@ def update_record():
 
 @app.route('/', methods=['DELETE'])
 def delete_record():
-    record = json.loads(request.data)
+    record = request.json
     user = User.objects(name=record['name']).first()
     if not user:
         return jsonify({'error': 'data not found'})
