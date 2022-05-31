@@ -69,6 +69,7 @@
 
 ### 3. Single Template
 > 1. GET single
+
     <URL : locahost:5000/template/template_id
     Method : GET
     Headers : {
