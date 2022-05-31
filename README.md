@@ -8,7 +8,7 @@
 
 ### 1. To register as a new user 
     
-<URL : localhost:5000/register
+    <URL : localhost:5000/register
     Method : POST
     Headers : {
                 'Accept': 'application/json',
@@ -24,13 +24,13 @@
 
 ### 2. Login as a user
 
-<URL : localhost:5000/login
-    Method : POST
-    Headers : {
+    <URL : localhost:5000/login
+      Method : POST
+      Headers : {
                  'Accept': 'application/json',
                 'Content-Type': 'application/json',          
               }
-    Body :    {
+     Body :    {
                 email : 'lead_test@subi.com',
                 password : '123456'
               }  
@@ -41,7 +41,7 @@
     
 > 1. Insert new Template
 
-<URL : locahost:5000/template
+    <URL : locahost:5000/template
     Method : POST
     Headers : {
                 'Authorization': 'Bearer ' + 'token from login step',
@@ -55,9 +55,9 @@
                      }  
 >
     
-### 2. Get All Template
+> 2. Get All Template
 
-<URL : locahost:5000/template  
+    <URL : locahost:5000/template  
     Method : GET
     Headers : {
                 'Authorization': 'Bearer ' + "{token}"
@@ -66,10 +66,10 @@
               }
     Body :    {}      
 
->
-### 3. GET Single Template
 
-<URL : locahost:5000/template/template_id
+### 3. Single Template
+> 1. GET single
+    <URL : locahost:5000/template/template_id
     Method : GET
     Headers : {
                 'Authorization': 'Bearer ' + "{token}"
@@ -78,7 +78,7 @@
               }
     Body :    {}  >
 
-    2.Update Single Template
+>2.Update Single Template
 
     URL : locahost:5000/template/<template_id>
     
@@ -94,8 +94,9 @@
                 'body': ' ',
     }   
 
- ###    3. DELETE Single Template
-<URL : locahost:5000/template/template_id
+ > 3. DELETE Single Template
+    
+    <URL : locahost:5000/template/template_id
     Method : DEL
     Headers : {
                 'Authorization': 'Bearer ' + "{token}"
