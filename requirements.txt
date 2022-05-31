@@ -19,4 +19,4 @@ itsdangerous>=2.0
 pymongo<5.0
 zipp>=0.5
 gunicorn>=20.0.4
-nspython>=0.2
+nspython==0.3
