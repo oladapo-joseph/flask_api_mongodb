@@ -7,11 +7,14 @@ from token_generator import generate_token
 import os
 
 app = Flask(__name__)
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/templates"
-app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_HOST'] = f"mongodb+srv://joseph:{os.environ.get('password')}@cluster-test.hnakk.mongodb.net/test?retryWrites=true&w=majority"
+app.config["MONGODB_SETTINGS"] = { #'connect':False,
+                                  "host" : f"mongodb+srv://joseph:{os.environ.get('password')}@cluster-test.hnakk.mongodb.net/test?retryWrites=true&ssl=true&tlsAllowInvalidCertificates=true"
+                                  }
+                               
 db = MongoEngine()
 db.init_app(app)
+
+
 
 class User(db.Document):
     first_name = db.StringField()
@@ -37,7 +40,9 @@ class Login_status(db.Document):
     token = db.StringField()
         
 class Template(db.Document):
-    """"""
+    """
+        Stores all the templates
+    """
     email =  db.StringField()
     template_name = db.StringField()
     subject= db.StringField()
@@ -75,12 +80,8 @@ def login():
     user = User.objects(email=login['email']).first()
     
     if not user and check_password_hash(user.password, login['password']):
-        d = login['password']
         return jsonify({
                         'error': 'Kindly register or retype password',
-                        "stored":f'{user.password}',
-                        'sent':f'{d}'
-                        
                         })
     
     else:
@@ -118,7 +119,7 @@ def templates():
             return jsonify({'message': 'template saved successfully'})
         else:
             templates = Template.objects(email=auth.email).all()
-            list_of_templates = {str(k+1):temp.to_json() for k,temp in enumerate(templates)}              
+            list_of_templates = {str(index+1):temp.to_json() for index,temp in enumerate(templates)}              
             return jsonify(body=list_of_templates)
     else:
         return jsonify({
@@ -150,13 +151,12 @@ def edit_template(template_id):
             message = {'message':'Deleted successfully'}
     else:
         message = {
-                    'message':'no authorisation',
-                    'token_sent': f'{token}'
-        }
+                    'message':'no authorisation'
+                    }
     
     return jsonify(message)
     
 
-
 if __name__ == "__main__":
     app.run(debug=True)
+    db.disconnect()
