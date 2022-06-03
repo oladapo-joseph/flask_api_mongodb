@@ -33,8 +33,8 @@ class User(db.Document):
     def to_json(self):
         return {"name": " ".join([self.first_name,self.last_name]),
                 "email": self.email,
-                "message": 'Successfully created',
-                "login condition": "Add a secret key to your authorization header to login. Mode 'Bearer <secret_key>'"}
+                "message": 'Account Successfully created',
+                "login condition": "Add secret key to your authorization header to login. Mode 'Bearer <secret_key>'"}
 
 
 class Login_status(db.Document):
