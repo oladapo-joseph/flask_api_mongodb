@@ -27,7 +27,7 @@
 
     <URL : localhost:5000/login
       Method : POST
-      Headers : {
+      Headers : {'Authorization': 'Bearer ' + '<secret_key>',
                  'Accept': 'application/json',
                 'Content-Type': 'application/json',          
               }
