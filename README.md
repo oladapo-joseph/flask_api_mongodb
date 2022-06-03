@@ -15,10 +15,11 @@
                 'Content-Type': 'application/json',          
               }
     Body :    {
-                first_name : 'lead_test@subi.com',
-                last_name : '123456'
-                email : 'lead_test@subi.com',
-                password : '123456'
+                'first_name' : 'lead_test@subi.com',
+                ''last_name'' : '123456'
+                'email' : 'lead_test@subi.com',
+                "password" : '123456',
+                'secret_key' = 'sloovi'
               }
 >
 
