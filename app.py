@@ -37,7 +37,7 @@ class User(db.Document):
                 "login condition": "Add secret key to your authorization header to login. Mode 'Bearer <secret_key>'"}
 
 
-class Login_status(db.Document):
+class Login(db.Document):
     
     """
         This Documents keeps record of the login token given to a user that logs in
@@ -100,7 +100,7 @@ def login():
     else:
         SECRET_KEY = request.headers['Authorization'].split(' ')[1][:-1]   # carries te secret key from the header 
         token = encode_data(json_data= login ,secret = SECRET_KEY)          # encoding the secret key
-        login = Login_status(email =user.email, token=token )               # saving the token generated to be accessed later
+        login = Login(email =user.email, token=token )               # saving the token generated to be accessed later
         login.save()
         return jsonify(
                         {
@@ -115,7 +115,7 @@ def login():
 def templates():
     token = request.headers['Authorization'].split(' ')[1][:-1]             # to check for token
     
-    login = Login_status.objects(token=token).first()
+    login = Login.objects(token=token).first()
     if login:                                                                # checks if token exists'      
      # checks if the token is valid, returns true or false and e==
         auth, valid = decode_data(token, User.objects(email=login.email).first().secret_key)
@@ -153,7 +153,7 @@ def edit_template(template_id):
     """
     token = request.headers['Authorization'].split(' ')[1][:-1]
     # to check for token
-    login= Login_status.objects(token=token).first()
+    login= Login.objects(token=token).first()
     if login:    
         auth, valid = decode_data(token, User.objects(email=login.email).first().secret_key )    
         message = ''
